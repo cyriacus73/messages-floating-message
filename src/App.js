@@ -8,7 +8,7 @@ import "./App.css"; // Import your CSS file
 
 // Create a Modal component
 function Modal({ isOpen, onClose, phoneNumber, app }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(app === "whatsapp" ? "Hello, I have a question." : app === "telegram" ? "Hi, can we chat?" : "");
 
   const handleSend = () => {
     if (app === "whatsapp") {
@@ -26,16 +26,17 @@ function Modal({ isOpen, onClose, phoneNumber, app }) {
   return (
     <div className={`modal ${isOpen ? "flex" : "hidden"}`}>
       <div className="modal-content">
-        <span className="close" onClick={onClose}>
-          <MdClose />
+        <span className="close mb-2" onClick={onClose}>
+          <MdClose size={28}/>
         </span>
-        <h2>Send a message</h2>
+        <h2 className="mb-4">Send a message</h2>
         <div className="centered-content">
           <textarea
             className="modal-textarea"
             placeholder="Type your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            rows="8"
           ></textarea>
           <div className="center-button">
             <button className="modal-send-button" onClick={handleSend}>
