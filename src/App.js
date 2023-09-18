@@ -8,17 +8,29 @@ import "./App.css"; // Import your CSS file
 
 // Create a Modal component
 function Modal({ isOpen, onClose, phoneNumber, app }) {
-  const [message, setMessage] = useState(app === "whatsapp" ? "Hello, I have a question." : app === "telegram" ? "Hi, can we chat?" : "");
+  const [message, setMessage] = useState(
+    app === "whatsapp"
+      ? "Hello, I have a question."
+      : app === "telegram"
+      ? "Hi, can we chat?"
+      : ""
+  );
 
   const handleSend = () => {
     if (app === "whatsapp") {
       // You can replace this with logic to send a WhatsApp message via API or deep link
       // For example, you can open a WhatsApp link with the message and phone number
-      window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+      window.open(
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+        "_blank"
+      );
     } else if (app === "telegram") {
       // You can replace this with logic to send a Telegram message via API or deep link
       // For example, you can open a Telegram link with the message and username
-      window.open(`https://t.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+      window.open(
+        `https://t.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+        "_blank"
+      );
     }
     onClose();
   };
@@ -79,21 +91,26 @@ function App() {
     setRippling(true);
     setTimeout(() => {
       setRippling(false);
-    }, 1000); // Adjust the duration as needed
+    }, 0); // Adjust the duration as needed
   };
 
   return (
     <div>
       <div className="fixed bottom-5 right-5">
-        <button className={`py-2 px-4 rounded-full ${rippling ? "ripple" : ""}`} onClick={toggleMenu}>
+        <button
+          className={`py-2 px-4 rounded-full m-2${rippling ? "ripple" : ""}`}
+          onClick={toggleMenu}
+        >
           {isMenuOpen ? (
-            <MdClose className="text-xl" />
+            <MdClose className="text-xl justify-center align-center" />
           ) : (
-            <div className="ripple-container" onClick={handleRippleEffect}>
+            <div onClick={handleRippleEffect}>
+              <div className="ripple"></div>
               <img src={chatIcon} alt="Chat icon" />
             </div>
           )}
         </button>
+
         {isMenuOpen && (
           <div className="absolute bottom-14 right-0 space-y-2">
             <a href="tel:+905338587737">
@@ -110,10 +127,20 @@ function App() {
       </div>
 
       {showTeleModal && (
-        <Modal isOpen={showTeleModal} onClose={closeTeleModal} phoneNumber="ProKibris" app="telegram" />
+        <Modal
+          isOpen={showTeleModal}
+          onClose={closeTeleModal}
+          phoneNumber="ProKibris"
+          app="telegram"
+        />
       )}
       {showWhatsappModal && (
-        <Modal isOpen={showWhatsappModal} onClose={closeWhatsappModal} phoneNumber="905338427157" app="whatsapp" />
+        <Modal
+          isOpen={showWhatsappModal}
+          onClose={closeWhatsappModal}
+          phoneNumber="905338427157"
+          app="whatsapp"
+        />
       )}
     </div>
   );

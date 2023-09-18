@@ -90,9 +90,38 @@
   cursor: pointer;
 }
 
-.chatIcon{
+
+.ripple {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
   content: '';
+  height: 100%;
+  width: 100%;
+  border: 4px solid rgba(8, 8, 8, 0.2);
   border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(37, 211, 101, 0);
-  animation: _pulse 1.2s infinite;
+  animation-name: ripple-animation;
+  animation-duration: 2s; /* Adjust the duration as needed */
+  transform: scale(0);
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(.65, 0, .34, 1);
+  z-index: -1;
+  opacity: 0;
 }
+
+@keyframes ripple-animation {
+  from {
+    opacity: 1;
+    transform: scale3d(0.75, 0.75, 1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(1.5, 1.5, 1);
+  }
+}
+
