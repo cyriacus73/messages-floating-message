@@ -27,7 +27,7 @@ function Modal({ isOpen, onClose, phoneNumber, app }) {
     <div className={`modal ${isOpen ? "flex" : "hidden"}`}>
       <div className="modal-content">
         <span className="close mb-2" onClick={onClose}>
-          <MdClose size={28}/>
+          <MdClose size={28} />
         </span>
         <h2 className="mb-4">Send a message</h2>
         <div className="centered-content">
@@ -53,6 +53,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showTeleModal, setShowTeleModal] = useState(false);
   const [showWhatsappModal, setShowWhatsappModal] = useState(false);
+  const [rippling, setRippling] = useState(false); // State for the ripple effect
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -74,14 +75,23 @@ function App() {
     setShowWhatsappModal(false);
   };
 
+  const handleRippleEffect = () => {
+    setRippling(true);
+    setTimeout(() => {
+      setRippling(false);
+    }, 1000); // Adjust the duration as needed
+  };
+
   return (
     <div>
       <div className="fixed bottom-5 right-5">
-        <button className="py-2 px-4 rounded-full" onClick={toggleMenu}>
+        <button className={`py-2 px-4 rounded-full ${rippling ? "ripple" : ""}`} onClick={toggleMenu}>
           {isMenuOpen ? (
             <MdClose className="text-xl" />
           ) : (
-            <img src={chatIcon} alt="Chat icon" />
+            <div className="ripple-container" onClick={handleRippleEffect}>
+              <img src={chatIcon} alt="Chat icon" />
+            </div>
           )}
         </button>
         {isMenuOpen && (
